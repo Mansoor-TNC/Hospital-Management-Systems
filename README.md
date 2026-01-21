@@ -1,2 +1,2 @@
-This a project which allows admins and doctors to collaborate and work efficiently to serve the patients
+This a project which allows admins and doctors to collaborate and work efficiently to serve the patients. 
 involves signin and login for authorization and role-based access.
