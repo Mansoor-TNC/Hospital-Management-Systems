@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+</head>
+<style>
+        .name{
+        color: rgb(255, 247, 0) ;
+        font-size: 40px;
+        text-align: left;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(5, 143, 207);
+        height: 75px;
+        width: 100%;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    body{
+        background-color:rgb(233, 241, 251);
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+    }
+
+    .login_box{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        width: 400px;
+        padding: 5px;
+        border-radius: 25px;
+        margin:100px;
+        height:fit-content;
+    }
+
+    input{
+        width: 300px;
+        padding: 10px;
+        margin: 5px;
+    }
+
+    .box{
+        color: rgb(255, 247, 0) ;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 15px;   
+    }
+
+    button.box{
+        background-color: rgb(5, 143, 207);
+        border-radius: 10px;
+        padding: 5px;
+        border: 0px;
+    }
+
+    button.box:hover{
+        background-color: rgb(5, 89, 130);
+    }
+
+    
+    button:hover {
+        transform: scale(1.01);
+    }
+    
+    .box{
+        width: 200px;
+        color: rgb(255, 247, 0);
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        border: 0px;
+        border-radius: 10px;
+        height: 30px;
+    }
+
+    body{
+        background-color:rgb(233, 241, 251);
+    }
+
+    input{
+        width: 280px;
+        height: 40px;
+        font-size: 24px;
+        text-align: center;
+        border-radius: 5px;
+        color: rgb(5, 143, 207);
+    }
+
+    .boxes{
+        background-color: rgb(255, 255, 255);
+        width: 92%;
+        border-radius: 10px;
+        margin: 30px;
+        height: fit-content;
+        color:rgb(0, 169, 253);
+        font-size: 45px;
+        border: 1px solid rgb(0, 217, 255);
+        box-shadow: -10px 5px 10px rgba(0, 221, 255, 0.7);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3px 20px;
+    }
+
+    .doctors{
+        width: 100%;
+        align-items: center;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: space-between;  
+        align-items: center; 
+    }
+
+    .doctor_name {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(5, 143, 207);
+    }
+
+    .rows{
+        display: flex;
+        gap: 20px; 
+    }
+
+    .patients{
+        width: 100%;
+        align-items: center;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: space-between;  
+        align-items: center; 
+    }
+
+    table{
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+        margin: 10px;
+       
+
+    }
+
+    td{
+        border: 2px solid black;
+        padding: 10px;
+    }
+
+    th{
+        border: 2px solid black;
+        padding: 10px;
+    }
+
+    .footer{
+        padding-left: 10px;
+        background-color: rgb(5, 143, 207);
+        font-size: 20px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgb(255, 247, 0);
+    }
+
+</style>
+<body>
+    <a href="/admin_dashboard" class = "name" >
+        Admin Dashboard
+    </a> 
+    
+    <div class = "boxes" style="font-size: 35px; flex-direction: column; align-items: flex-start;"> 
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-left: 10px;">
+            <span>Doctors of {{ department.department_name }} </span>
+        </div>
+        {% if doctors %}
+            <table class = "patients" style="font-size: 20px;">
+                <tr>
+                    <th>Doctor id</th>
+                    <th>Doctor Name</th>
+                    <th>Doctor email</th>
+                </tr>
+                {% for doctor in doctors %}
+                    {% if doctor.doctor_specialization == department.department_id %}
+                    <tr>
+                        <td> {{ doctor.user_id }} </td>
+                        <td>{{ doctor.user_name }}</td>
+                        <td>{{ doctor.user_email }} </td>
+                    </tr>    
+                    {% endif %}
+                {% endfor %}
+            </table>
+        {% else %}
+            <p style="color: red; font-size: 20px; margin-left: 15px;">No doctors registered in this department.</p>
+        {% endif %}
+    </div>
+
+    <footer class = "footer" style="width: 100%;">
+        Hospital Management Systems | 2024 Batch | copyright 2025
+    </footer>
+</body>
+</html>

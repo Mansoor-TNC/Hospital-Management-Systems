@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient_Dashboard</title>
+</head>
+<style>
+    .header {
+        padding-left: 10px;
+        background-color: rgb(63, 181, 16);
+        font-size: 40px;
+        height: 75px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        color: rgb(255, 247, 0);
+       }
+
+    .name{
+        width: 715px;
+        font-size: 40px;
+        font-weight: bold;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    button.box{
+        width:fit-content;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: rgb(63, 181, 16);    
+        transition: 0.3s;
+
+    }
+
+    button.box:hover{
+        background-color: rgb(8, 150, 32);
+
+    }
+
+    button:hover {
+        transform: scale(1.01);
+    }
+    
+    .box{
+        width: 200px;
+        color: rgb(255, 247, 0);
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        border: 0px;
+        border-radius: 10px;
+        height: 30px;
+    }
+
+    body{
+        background-color:rgb(233, 241, 251);
+    }
+
+    input{
+        width: 300px;
+        height: 40px;
+        font-size: 24px;
+        text-align: center;
+        border-radius: 5px;
+        color: rgb(53, 172, 5);
+    }
+
+    .boxes{
+        background-color: rgb(255, 255, 255);
+        width: 92%;
+        border-radius: 10px;
+        margin: 30px;
+        height: fit-content;
+        color:rgb(53, 172, 5);
+        font-size: 45px;
+        border: 1px solid rgb(72, 255, 0);
+        box-shadow: -10px 5px 10px rgba(63, 220, 1, 0.7);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3px 20px;
+    }
+
+    .doctors{
+        width: 100%;
+        align-items: center;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: space-between;  
+        align-items: center; 
+    }
+
+    .doctor_name {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(63, 181, 16);
+    }
+
+    .rows{
+        display: flex;
+        gap: 20px; 
+    }
+
+    .patients{
+        width: 100%;
+        align-items: center;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: space-between;  
+        align-items: center; 
+    }
+
+    table{
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+        margin: 10px;
+       
+
+    }
+
+    td{
+        border: 2px solid black;
+        padding: 10px;
+        font-size: 25px;
+    }
+
+    th{
+        border: 2px solid black;
+        padding: 10px;
+        font-size: 25px;
+
+    }
+
+    .footer{
+        padding-left: 10px;
+        background-color: rgb(63, 181, 16);
+        font-size: 20px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgb(255, 247, 0);
+    }
+</style>
+
+<body>
+    {% if error %}
+    <script>
+        alert("{{ error }}")
+    </script>
+    {% endif %}
+    <div class = "header">
+        <div class = "name">Patient Dashboard</div>
+        <div class = "box">
+           <form action = "/logout" method="post">
+            <button class = "box" type="submit">Logout</button>
+           </form> 
+        </div>
+    </div>
+    <div class = "boxes">
+        <div>Welcome {{ user_name }}</div>
+        <div class="rows" style="align-items: center;">
+            <div class = "rows" >
+                <form action="/patient_dashboard/search" method="get">
+                    <input style="margin-bottom: 10px;" type="text" name="search" placeholder="Doctor or Deparment Name">
+                    <button style="margin-right: 150px;" class = "box" type="submit">Search</button>
+                </form>
+            </div>
+        <form action="/patient_dashboard/history" method="get">
+            <button style="margin-bottom: 15px;" class = "box" type="submit">History</button>
+        </form>
+        <form action="/patient_dashboard/edit/{{ user_id }}" method="get">
+            <button style="font-size: 15px; height: 40px; " class = "box" type="submit">Edit<br>profile</button>
+        </form>
+        </div>
+    </div>
+    {% if searched %}
+    <div class="boxes" style="flex-direction: column; align-items: flex-start;">
+        <h5 style="align-items: baseline; justify-content: flex-start;margin: 2px;">
+            Search Results for {{ searched }}
+        </h5>
+        {% if searched_doctors %}
+            <h6 style="margin: 2px;">
+                Doctors:-
+            </h6>
+            {% for doctor in searched_doctors %}
+            <div class="doctors">
+                <div style=" border: 1px solid black; width: 100%;padding: 10px;display: flex;justify-content: space-between;align-items: center;">
+                   <span style="font-size: 30px;" class="doctor_name">Dr. {{ doctor.user_name }}</span>
+                    <div class="rows">
+                        <form action="/patient_dashboard/patients_registered_doctor/check_availability" method="get">
+                            <input type="hidden" name="doctor_id" value="{{ doctor.user_id }}">
+                            <button class="box" style="color: white; background-color: orange; ">Check Availability</button>
+                        </form>
+                    </div>        
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if searched_departments %}
+            <h6 style="margin: 2px;">
+                Departments:-
+            </h6>
+            {% for department in searched_departments %}
+                <div class="patients">
+                    <div style=" border: 1px solid black; width: 100%;padding: 10px;display: flex;justify-content: space-between;align-items: center;">
+                        <span class="doctor_name" style="font-size: 30px;">{{ department.department_name }}</span>
+                        <div class = "rows" style="font-size: 30px;" >
+                            {{ department.description }}
+                        </div>
+                        <form action="/patient_dashboard/patients_registered_doctor/{{ department.department_id }}" method="post">
+                            <button class="box" style="color: white; font-size: 15px; background-color: rgb(13, 0, 255)">View Details</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if not searched_doctors %}
+            {% if not searched_departments %}
+                <p>NO Result Found</p>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% endif %}
+
+
+    <div class = "boxes" style="font-size: 35px; flex-direction: column; align-items: flex-start;"> 
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-left: 10px;">
+            <span>Departments</span>
+        </div>
+        {% for department in departments[:3] %}
+            <div class="patients">
+                <div style=" border: 1px solid black; width: 100%;padding: 10px;display: flex;justify-content: space-between;align-items: center;">
+                    <span class="doctor_name" style="font-size: 30px;">{{ department.department_name }}</span>
+                    <div class = "rows">
+                    <form action="/patient_dashboard/patients_registered_doctor/{{ department.department_id }}" method="post">
+                        <button class="box" style="color: white; font-size: 15px; height: 38px ; background-color: rgb(13, 0, 255)">View Details</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% if departments|length > 3 %}
+        <form action="/patient_dashboard/patients_all_departments" method="post">
+            <button class="box" style="color: white; font-size: 15px; margin: 10px ;background-color: rgb(28, 211, 0)">View All</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <div class = "boxes" style="font-size: 35px; flex-direction: column; align-items: flex-start;"> 
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-left: 10px;">
+            <span>Booked Appointments</span>
+        </div>
+        <table class = "patients" style="font-size: 20px; justify-content: center;">
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Doctor Name</th>
+                <th>Department</th>
+                <th>Status</th>
+            </tr>
+
+            {% for appointment in appointments %}
+            <tr>
+                <td> {{ appointment.date }} </td>
+                <td> {{ appointment.time }}</td>
+                <td>{{ appointment.doctors.user_name }} </td>
+                <td>{{ appointment.doctors.department.department_name }}</td>
+                <td>
+                    {% if appointment.status == "Booked" %}
+                    <form action="/patient_dashboard/appointment_cancel/" method="post" style="display:inline;">
+                        <input type="hidden" name="appointment_id" value="{{ appointment.appointment_id }}">
+                        <button class="box" style="background-color: red;color: white;" >Cancel</button>
+                    </form>
+                    {% endif %}
+                    {% if appointment.status == "Cancelled by Doctor" %}
+                    <p style="color: red;font-size: 15px;">Appointment Cancelled <br> by Doctor</p>
+                    {% endif %}
+                    {% if appointment.status == "Cancelled by Patient" %}
+                    <p style="color: red; font-size: 15px;">Appointment Cancelled <br> by Patient</p>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+    <footer class = "footer">
+        Hospital Management Systems | 2024 Batch | copyright 2025
+    </footer>
+</body>
+</html>

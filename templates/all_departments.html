@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .header {
+        padding-left: 10px;
+        background-color: rgb(5, 143, 207);
+        font-size: 40px;
+        height: 75px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        color: rgb(255, 247, 0)
+       }
+
+    .name{
+        color: rgb(255, 247, 0) ;
+        font-size: 40px;
+        text-align: left;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(5, 143, 207);
+        height: 75px;
+        width: 100%;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        button.box{
+        width:fit-content;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: rgb(5, 143, 207);    
+        transition: 0.3s;
+
+    }
+
+    button.box:hover{
+        background-color: rgb(5, 89, 130);
+
+    }
+
+    button:hover {
+        transform: scale(1.01);
+    }
+    
+    .box{
+        width: 200px;
+        color: rgb(255, 247, 0);
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        border: 0px;
+        border-radius: 10px;
+        height: 30px;
+    }
+
+    body{
+        background-color:rgb(233, 241, 251);
+    }
+
+    input{
+        width: 280px;
+        height: 40px;
+        font-size: 24px;
+        text-align: center;
+        border-radius: 5px;
+        color: rgb(5, 143, 207);
+    }
+
+    .boxes{
+        background-color: rgb(255, 255, 255);
+        width: 92%;
+        border-radius: 10px;
+        margin: 30px;
+        height: fit-content;
+        color:rgb(0, 169, 253);
+        font-size: 45px;
+        border: 1px solid rgb(0, 217, 255);
+        box-shadow: -10px 5px 10px rgba(0, 221, 255, 0.7);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3px 20px;
+    }
+
+    .doctors{
+        width: 100%;
+        align-items: center;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: space-between;  
+        align-items: center; 
+    }
+
+    .doctor_name {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(5, 143, 207);
+    }
+
+    .rows{
+        display: flex;
+        gap: 20px; 
+    }
+
+    .patients{
+        width: 100%;
+        align-items: center;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: space-between;  
+        align-items: center; 
+    }
+
+    .footer{
+        padding-left: 10px;
+        background-color: rgb(5, 143, 207);
+        font-size: 20px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgb(255, 247, 0);
+    }
+</style>
+<body>
+    {% if error %}
+    <script>
+        alert("{{ error }}")
+    </script>
+    {% endif %}
+    
+    <a href="/admin_dashboard" class = "name" >
+        Admin Dashboard
+    </a>
+    <div class = "boxes" style="font-size: 35px; flex-direction: column; align-items: flex-start;"> 
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-left: 10px;">
+            <span>Departments</span>
+            <form action="/admin_dashboard/create_department" method="get">
+                <button class = "box" style="color: white; background-color: rgb(0, 255, 0);">Create</button>
+            </form>
+        </div>
+        {% for department in departments %}
+         <div class="patients">
+            <div style=" border: 1px solid black; width: 100%;padding: 10px;display: flex;justify-content: space-between;align-items: center;">
+                <span class="doctor_name">{{ department.department_name }}</span>
+                <div class = "rows">
+                <form action="/admin_dashboard/department/delete/all_departments/{{ department.department_id }}" method="post">
+                    <button class="box" style="color: white; background-color: red">Delete</button>
+                </form>
+                <form action="/admin_dashboard/registered_doctor/{{ department.department_id }}" method="post">
+                    <button class="box" style="color: white; font-size: 15px; background-color: rgb(13, 0, 255)">View Doctors</button>
+                </form>
+                </div>
+            </div>
+         </div>
+         {% endfor %}
+    </div>
+
+
+    <footer class = "footer">
+        Hospital Management Systems | 2024 Batch | copyright 2025
+    </footer>
+
+<body>
+</html>

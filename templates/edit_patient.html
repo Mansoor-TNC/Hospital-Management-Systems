@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+</head>
+<style>
+        .name{
+        color: rgb(255, 247, 0) ;
+        font-size: 40px;
+        text-align: left;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(63, 181, 16);
+        height: 75px;
+        width: 100%;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .footer{
+        padding-left: 10px;
+        background-color: rgb(63, 181, 16);
+        font-size: 20px;
+        height: 30px;
+        display: flex;
+        justify-content:center;
+        align-items:center;
+        color: rgb(255, 247, 0);
+        width: 100%;
+
+        
+    }
+
+    body{
+        background-color:rgb(233, 241, 251);
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+    }
+
+    .login_box{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        width: 400px;
+        padding: 5px;
+        border-radius: 25px;
+        margin:100px;
+        height:fit-content;
+    }
+
+    input{
+        width: 300px;
+        padding: 10px;
+        margin: 5px;
+    }
+
+    .box{
+        color: rgb(255, 247, 0) ;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 15px;   
+    }
+
+    button.box{
+        background-color: rgb(46, 163, 0);
+        border-radius: 10px;
+        padding: 5px;
+        border: 0px;
+    }
+
+    button.box:hover{
+        background-color: rgb(5, 130, 32);
+    }
+
+</style>
+<body>
+    <a href="/patient_dashboard" class = "name" >
+        Patient Dashboard
+    </a> 
+    <div class = "login_box">
+        <h1 style="font-size: 40px; color:rgb(5, 167, 7) ;">
+            Edit Profile
+        </h1>
+        {% if error %}
+        <p style="color: red; margin: 0;"> {{ error }}</p>
+        {% endif %}
+        <form action="/patient_dashboard/edit/edit_patient/{{ patient.user_id }}" method="post">
+            <input type="text" name = "patient_name" value = "{{ patient.user_name }}" required/><br>
+            <input type="text" name = "patient_email" value="{{ patient.user_email }}" required/><br>
+            <input type="text" name = "patient_password" value="{{ patient.user_password }}" required/><br>
+            <div class = "box" method = "post">
+                <button class="box" type="submit">Update</button><br>
+            </div>
+        </form>
+
+    </div>
+    <footer class = "footer">
+        Hospital Management Systems | 2024 Batch | copyright 2025
+    </footer>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<style>
+    .name{
+        color: rgb(166, 255, 0) ;
+        font-size: 30px;
+        text-align: left;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(0, 79, 72);
+        height: 75px;
+        width: 100%;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .footer{
+        padding-left: 10px;
+        background-color: rgb(0, 79, 72);
+        font-size: 20px;
+        height: 30px;
+        display: flex;
+        justify-content:center;
+        align-items:center;
+        color: rgb(166, 255, 0);
+        width: 100%;
+
+        
+    }
+
+    body{
+        background-color:rgb(253, 247, 239);
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+    }
+
+    .signup_box{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        width: 400px;
+        padding: 5px;
+        border-radius: 25px;
+        margin:100px;
+        height: 350px;
+    }
+
+    input{
+        width: 300px;
+        padding: 10px;
+        margin: 5px;
+    }
+
+    .box{
+        color: rgb(166, 255, 0) ;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 15px;   
+    }
+
+    button.box{
+        background-color: rgb(0, 79, 72);
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+    button.box:hover{
+        background-color: rgb(4, 54, 4);
+    }
+
+    p{
+        margin:0px;
+    }
+
+</style>
+<body>
+        <a href="/" class = "name">
+            Hospital Management Systems
+        </a> 
+        <div class = "signup_box">
+            <h1>
+                Create an Account
+            </h1>
+            {% if error %}
+            <p style="color: red;">{{ error }} <a href="/login" style="font-size: 15px;">/Login</a></p>
+            <a ></a>
+            {% endif %}
+
+            <form action="/sign_up" method="post">
+                <input type="text" name = "user_name" placeholder="Full name" required/><br>
+                <input type="text" name = "user_email" placeholder="Email Address" required/><br>
+                <input type="text" name = "user_password" placeholder="Set a Password" required/><br>
+                <div class = "box">
+                    <button class="box" type="submit">Submit</button><br>
+                    <a href="/login" style="font-size: 15px;"> already have an account? Login</a>
+                </div>
+            </form>
+        </div>
+
+        <footer class = "footer">
+        Hospital Management Systems | 2024 Batch | copyright 2025
+
+    </footer>
+</body>
+</html>

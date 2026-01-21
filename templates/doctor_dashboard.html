@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient_Dashboard</title>
+</head>
+<style>
+    .header {
+        padding-left: 10px;
+        background-color: rgb(114, 7, 7);
+        font-size: 40px;
+        height: 75px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        color: rgb(255, 247, 0);
+       }
+
+    .name{
+        width: 715px;
+        font-size: 40px;
+        font-weight: bold;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    button.box{
+        width:fit-content;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: rgb(114, 7, 7);    
+        transition: 0.3s;
+
+    }
+
+    button.box:hover{
+        background-color: rgb(97, 0, 0);
+
+    }
+
+    button:hover {
+        transform: scale(1.01);
+    }
+    
+    .box{
+        width: 200px;
+        color: rgb(255, 247, 0);
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        border: 0px;
+        border-radius: 10px;
+        height: 30px;
+    }
+
+    body{
+        background-color:rgb(233, 241, 251);
+    }
+
+    input{
+        width: 300px;
+        height: 40px;
+        font-size: 24px;
+        text-align: center;
+        border-radius: 5px;
+        color: rgb(114, 7, 7);
+    }
+
+    .boxes{
+        background-color: rgb(255, 255, 255);
+        width: 92%;
+        border-radius: 10px;
+        margin: 30px;
+        height: fit-content;
+        color:rgb(114, 7, 7);
+        font-size: 45px;
+        border: 1px solid rgb(77, 0, 0);
+        box-shadow: -10px 5px 10px rgba(204, 0, 0, 0.7);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3px 20px;
+    }
+
+    .doctors{
+        width: 100%;
+        align-items: center;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: space-between;  
+        align-items: center; 
+    }
+
+    .doctor_name {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(114, 7, 7);
+    }
+
+    .rows{
+        display: flex;
+        gap: 20px; 
+    }
+
+    .patients{
+        width: 100%;
+        align-items: center;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: space-between;  
+        align-items: center; 
+    }
+
+    table{
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+        margin: 10px;
+       
+
+    }
+
+    td{
+        border: 2px solid black;
+        padding: 10px;
+    }
+
+    th{
+        border: 2px solid black;
+        padding: 10px;
+    }
+
+    .footer{
+        padding-left: 10px;
+        background-color: rgb(114, 7, 7);
+        font-size: 20px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgb(255, 247, 0);
+    }
+</style>
+
+<body>
+    {% if error %}
+    <script>
+        alert("{{ error }}")
+    </script>
+    {% endif %}
+    
+    <div class = "header">
+        <div class = "name">Doctor Dashboard</div>
+        <div class = "box">
+           <form action = "/logout" method="post">
+            <button class = "box" type="submit">Logout</button>
+           </form> 
+        </div>
+    </div>
+    <div class = "boxes">
+        <div>Welcome Dr. {{ user_name }}</div>
+        <form action="/doctor_dashboard/provide_availability" method="get">
+            <button style="margin-bottom: 15px;height: fit-content; padding: 5px; font-size: 22px;" class = "box" type="submit">Provide Availability</button>
+        </form>
+    </div>
+
+     <div class = "boxes" style="font-size: 35px; flex-direction: column; align-items: flex-start;"> 
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-left: 10px;">
+            <span>Todays Appointments</span>
+        </div>
+        {% for appointment in todays_appointments %}
+            <div class="patients">
+                <div style=" border: 1px solid black; width: 100%;padding: 10px;display: flex;justify-content: space-between;align-items: center;">
+                    <span class="doctor_name" style="font-size: 30px;">{{ appointment.patients.user_name }} ( {{ appointment.time }} )</span>
+                    <div class = "rows">
+                    <form action="/doctor_dashboard/appointment_view_history" method="get">
+                        <input type="hidden" name="patient_id" value="{{ appointment.patients.user_id }}">
+                        <button class="box" style="color: white; font-size: 18px; height: 38px ; background-color: rgb(255, 149, 0)">View History</button>
+                    </form>
+                    <form action="/doctor_dashboard/appointment_update" method="post">
+                        <input type="hidden" name="appointment_id" value="{{ appointment.appointment_id }}">
+                        <button class="box" style="color: white; font-size: 18px; height: 38px ; background-color: rgb(23, 226, 0)">Update</button>
+                    </form>
+                    <form action="/doctor_dashboard/appointment_cancelled" method="post">
+                        <input type="hidden" name="appointment_id" value="{{ appointment.appointment_id }}">
+                        <button class="box" style="color: white; font-size: 18px; height: 38px ; background-color: rgb(255, 0, 0)">Cancel</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+     <div class = "boxes" style="font-size: 35px; flex-direction: column; align-items: flex-start;"> 
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-left: 10px;">
+            <span>Upcoming Appointments</span>
+        </div>
+        {% for appointment in upcoming_appointments %}
+            <div class="patients">
+                <div style=" border: 1px solid black; width: 100%;padding: 10px;display: flex;justify-content: space-between;align-items: center;">
+                    <span class="doctor_name" style="font-size: 30px;">{{ appointment.patients.user_name }} ( {{ appointment.time }} / {{ appointment.date }} )</span>
+                    <div class = "rows">
+                    <form action="/doctor_dashboard/appointment_view_history" method="get">
+                        <input type="hidden" name="patient_id" value="{{ appointment.patients.user_id }}">
+                        <button class="box" style="color: white; font-size: 18px; height: 38px ; background-color: rgb(255, 149, 0)">View History</button>
+                    </form>
+                    <form action="/doctor_dashboard/appointment_cancelled" method="post">
+                        <input type="hidden" name="appointment_id" value="{{ appointment.appointment_id }}">
+                        <button class="box" style="color: white; font-size: 18px; height: 38px ; background-color: rgb(255, 0, 0)">Cancel</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+     <footer class = "footer">
+        Hospital Management Systems | 2024 Batch | copyright 2025
+    </footer>
+</body>
+</html>

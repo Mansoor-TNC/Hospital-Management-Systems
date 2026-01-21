@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<style>
+    .name{
+        color: rgb(166, 255, 0) ;
+        font-size: 30px;
+        text-align: left;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(0, 79, 72);
+        height: 75px;
+        width: 100%;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .footer{
+        padding-left: 10px;
+        background-color: rgb(0, 79, 72);
+        font-size: 20px;
+        height: 30px;
+        display: flex;
+        justify-content:center;
+        align-items:center;
+        color: rgb(166, 255, 0);
+        width: 100%;
+
+        
+    }
+
+    body{
+        background-color:rgb(253, 247, 239);
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+    }
+
+    .login_box{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        width: 400px;
+        padding: 5px;
+        border-radius: 25px;
+        margin:100px;
+        height: 300px;
+    }
+
+    input{
+        width: 300px;
+        padding: 10px;
+        margin: 5px;
+    }
+
+    .box{
+        color: rgb(166, 255, 0) ;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 15px;   
+    }
+
+    button.box{
+        background-color: rgb(0, 79, 72);
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+    button.box:hover{
+        background-color: rgb(4, 54, 4);
+    }
+
+</style>
+<body>
+    <a href="/" class = "name">
+        Hospital Management Systems
+    </a> 
+    <div class = "login_box">
+        <h1>
+            Login
+        </h1>
+        {% if error %}
+        <p style="color: red; margin: 0;"> {{ error }}</p>
+        {% endif %}
+
+        <form action="/login" method="post">
+            <input type="text" name = "user_email" placeholder="Email Address" required/><br>
+            <input type="password" name = "user_password" placeholder="Password" required/><br>
+            <div class = "box" method = "post">
+                <button  style = "align-items: flex-end;"; class="box" type="submit">Submit</button><br>
+                <a href="/sign_up" style="font-size: 15px;"> Dont have an account? Register</a>
+            </div>
+        </form>
+
+    </div>
+    <footer class = "footer">
+        Hospital Management Systems | 2024 Batch | copyright 2025
+    </footer>
+</body>
+</html>

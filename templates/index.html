@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>introduction page</title>
+</head>
+<style>
+    .header {
+        padding-left: 10px;
+        background-color: rgb(0, 79, 72);
+        font-size: 25px;
+        height: 75px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+       }
+
+    button.box{
+        width: 75px;
+        color: rgb(166, 255, 0) ;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        background-color: rgb(0, 79, 72);
+        margin: 0px;
+        padding: 0px;
+    }
+
+    button.box:hover{
+        background-color: rgb(4, 54, 4);
+
+    }
+    
+    .box{
+        width: 70px;
+        color: rgb(166, 255, 0) ;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 15px;
+        border: 0px;
+        border-radius: 10px;
+        height: 25px;
+
+    }
+
+    .name{
+        width: 750px;
+        color: rgb(166, 255, 0) ;
+        font-size: 30px;
+        text-align: left;
+        font-weight: bold;
+        display: flex;
+        justify-content: flex-start;
+    }
+    
+    body{
+        background-color:rgb(254, 246, 236);
+    }
+
+    .points{
+        display: flex;
+        margin: 50px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: rgb(0, 25, 164);
+        font-size: 20px;
+        font-family:'Times New Roman', Times, serif;
+}
+    .footer{
+        padding-left: 10px;
+        background-color: rgb(0, 79, 72);
+        font-size: 20px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgb(166, 255, 0);
+        
+    }
+
+   
+</style>
+<body>
+    {% if error %}
+    <script>
+        alert("{{ error }}")
+    </script>
+    {% endif %}
+    
+    <div class = "header">
+        <div class = "name">
+            Hospital Management System
+        </div> 
+        
+        <div class = "box">
+           <form action = "/login" method="get">
+            <button class = "box" type="submit">Login</button>
+           </form> 
+        </div>
+
+        <div class = "box">
+            <form action="/sign_up" method="get">
+            <button class="box" type="submit">Sign up</button>
+            </form>
+        </div>
+    </div>
+    <div class="points">
+        <img style="position:relative ;height: 500px; width: 1250px; ;" src="https://shmsolutions.in/blog/wp-content/uploads/2025/06/Healthcare-professionals-collaborating-in-a-well-lit-hospital-corridor-emphasizing-teamwork-and-patient-care.jpg" alt="">
+        <p style="color: red; font-size: 35px; justify-content: flex-start; width: 100%; margin-bottom: 0px;" >
+            What is Hospital Management Systems ?
+        </p>
+        <p>
+            A hospital management system (HMS) is a software solution that integrates and automates the administrative, financial, and clinical 
+            operations of a healthcare facility. It acts as a centralized platform for tasks such as patient registration, appointment scheduling,
+             managing electronic health records and staff management, making daily operations more efficient.  
+            <p style="color:rgb(6, 2, 241);justify-content:flex-start;font-size: 25px; width: 100%; margin: 10px;">Core functions:-</p>
+            Patient Management: Handles patient registration, tracks their history, and manages appointments and visits.<br><br>
+            Electronic Health Records (EHR): Stores and organizes patient medical history, diagnoses, prescriptions, and lab reports electronically.<br><br>
+            Staff Management: Helps with scheduling, managing staff rosters, and other human resources-related tasks. <br><br>
+            <p style="color:rgb(6, 2, 241);justify-content:flex-start;font-size: 25px; width: 100%; margin: 10px;">Benefits of HMS:-</p>
+            Increased Efficiency: Streamlines processes, reduces manual work, and allows staff to focus more on patient care.<br><br>
+            Improved Patient Experience: Reduces wait times and simplifies processes like registration and appointment booking.<br><br>
+            Enhanced Data Security and Access: Secures patient information and provides authorized personnel with quick access to records and reports.<br><br>
+        </p>
+    </div>
+
+    <footer class = "footer">
+        Hospital Management Systems | 2024 Batch | copyright 2025
+    </footer>
+</body>
+</html>
